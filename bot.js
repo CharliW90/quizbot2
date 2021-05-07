@@ -6,12 +6,6 @@ const fs = require("fs");
 exports.fs = fs;
 const csv = require("jquery-csv");
 exports.csv = csv;
-const database = require("mongoose");
-exports.database = database;
-const Schema = database.Schema;
-exports.Schema = Schema;
-const ObjectID = Schema.ObjectID;
-exports.ObjectID = ObjectID;
 
 const client = new Discord.Client();
 
@@ -21,9 +15,6 @@ const bot_startup_message = process.env.bot_startup_message;
 const bot_activity_name = process.env.bot_activity_name;
 const bot_activity_type = process.env.bot_activity_type;
 const bot_activity_url = process.env.bot_activity_url;
-const mongo_user = process.env.mongodb_user;
-const mongo_pass = process.env.mongodb_pass;
-const mongo_db = process.env.mongodb_database;
 const quiz_day = process.env.quiz_day;
 const colours = ["AQUA", "BLUE", "YELLOW", "GREEN", "PURPLE", "GOLD", "RED", "GREY", "DARK_AQUA", "DARK_BLUE", "DARK_PURPLE", "DARK_VIVID_PINK", "DARK_GREEN", "DARK_GOLD", "DARK_ORANGE"];
 exports.colours = colours;
@@ -196,7 +187,6 @@ var admin_channel;
 exports.admin_channel = admin_channel;
 
 client.on("ready", () => {
-    var mongo_uri = "mongodb+srv://" + mongo_user + ":" + mongo_pass + "@quizbot.06byu.mongodb.net/" + mongo_db + "?retryWrites=true&w=majority";
     admin_channel = client.channels.cache.find(channel => channel.name === admin_channel_name);
     exports.admin_channel = admin_channel;
     client.user.setActivity({name: bot_activity_name, type: bot_activity_type, url: bot_activity_url})
@@ -204,12 +194,6 @@ client.on("ready", () => {
         .catch(console.error);
     dayChecker(quiz_day);
     teamCountParse(0);
-    database.connect(mongo_uri,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
-    );
     console.log("I am ready!");
     console.log("Prefix set to: " + prefix);
     console.log("Team Count is: " + teamCount);
@@ -218,31 +202,7 @@ client.on("ready", () => {
 	admin_channel.send("Bot Restarted. " + bot_startup_message);
     }
     setQuizTeamCategoryChannel();
-    if(database){
-      var conn_status_num = database.connection.readyState;
-      var conn_status;
-      switch (conn_status_num) {
-        case 0:
-	  conn_status = "ERROR: Mongoose Database Disconnected!";
-          break;
-	case 1:
-	  conn_status = "Mongoose Database Connected!";
-          break;
-        case 2:
-	  conn_status = "Mongoose Database Connecting...";
-          break;
-        case 3:
-	  conn_status = "ERROR: Mongoose Database Disconnecting...";
-      }
-      console.log(conn_status);
-    } else {
-      console.log("ERROR: Failed to establish mongoose database");
-    }
 });
-
-database.connection.on("connected", () =>
-  console.log("Mongoose Database Connected!")
-);
 
 client.on("message", async (message, args) => {
     try {
