@@ -1,0 +1,19 @@
+{
+  "name": "VirtualQuizBot",
+  "version": "1.2.0",
+  "description": "Discord Bot for handling team registrations for virtual-quiz.co.uk teams",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.4.1",
+    "enmap": "^5.8.2",
+    "jquery-csv": "^1.0.11",
+    "request": "^2.88.2",
+    "mongoose": "^5.11.9"
+  }
+}
