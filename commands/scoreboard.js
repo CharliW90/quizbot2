@@ -15,7 +15,7 @@ exports.run = async (message, args) => {
         {name: 'check', value: "Allows you to check which round numbers have been stored for each team."},
         {name: 'usage', value: "```++scoreboard check```"},
         {name: 'delete', value: "Allows you to delete an entire team from the scoreboard, or an entire round's results."},
-        {name: 'usage', value: "```++scoreboard delete @team-name``` or ```++scoreboard delete n``` where n is the number of a round."},
+        {name: 'usage', value: "```++scoreboard delete team-name``` or ```++scoreboard delete n``` where n is the number of a round."},
         {name: 'note', value: "The team-name or Round Number must match one of those listed in a ++scoreboard check"},
         {name: 'merge', value: "Allows you to merge the results for two teams into one."},
         {name: 'usage', value: "```++scoreboard merge team-name-to-keep team-name-to-discard```"},
