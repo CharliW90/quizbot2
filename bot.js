@@ -199,7 +199,7 @@ client.on("ready", () => {
     console.log("Team Count is: " + teamCount);
     const today = new Date();
     if(today.getDay() == quiz_day_num || quiz_day_num == 9) {
-	admin_channel.send("Bot Restarted. " + bot_startup_message);
+	admin_channel.send("Bot Restarted. " + bot_startup_message + " Bot will now not restart for another 24hrs");
     }
     setQuizTeamCategoryChannel();
 });
