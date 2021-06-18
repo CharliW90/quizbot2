@@ -70,7 +70,7 @@ exports.run = async (message, args) => {
             await base.teamCountParse(teamCount);
             const role_everyone = message.guild.roles.cache.find(role => role.name === '@everyone');
             const role_captain = message.guild.roles.cache.find(role => role.name === 'Team Captain');
-            const guest_host = message.guild.roles.cache.find(role => role.name === 'Guest Host');
+            const vip = message.guild.roles.cache.find(role => role.name === 'Special Guest');
             await message.guild.channels.create(textChannelTeamName, {
                 type: 'text', parent: team_category_channel, position: teamCount, permissionOverwrites: [
                     {
@@ -82,7 +82,7 @@ exports.run = async (message, args) => {
                         allow: ['VIEW_CHANNEL']
                     },
                     {
-                        id: guest_host,
+                        id: vip,
                         allow: ['VIEW_CHANNEL']
                     }
                 ]
@@ -102,7 +102,7 @@ exports.run = async (message, args) => {
                         allow: ['VIEW_CHANNEL']
                     },
                     {
-                        id: guest_host,
+                        id: vip,
                         allow: ['VIEW_CHANNEL']
                     }
                 ]
