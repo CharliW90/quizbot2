@@ -220,8 +220,8 @@ exports.run = async (message, args) => {
         const short_scores = new Discord.MessageEmbed()
           .setColor('DARK_PURPLE')
           .setTitle('Scoreboard (TEST)')
-        short_scores.addField("Team Name", table_of_names.join(\n), true);
-        short_scores.addField("Team Score", table_of_scores.join(\n), true);
+        short_scores.addField("Team Name", table_of_names.join("\n"), true);
+        short_scores.addField("Team Score", table_of_scores.join("\n"), true);
         admin_channel.send(short_scores);
       } catch (e) {
         throw e;
