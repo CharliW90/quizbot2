@@ -26,11 +26,11 @@ exports.run = async (message, args) => {
         await base.scoreboardParse(team, round_number, new_score_push);
         let teamChannel = message.guild.channels.cache.find(channel => channel.name === team);
         if(teamChannel){
-          teamChannel.send(message.author.displayName + " has just added " + amendment + " points to your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " + new_score_push)
+          teamChannel.send(message.author.username + " has just added " + amendment + " points to your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " + new_score_push)
         } else if (dictionary[team]) {
           let teamChannel = message.guild.channels.cache.find(channel => channel.name === dictionary[team]);
           if(teamChannel){
-            teamChannel.send(message.author.displayName + " has just added " + amendment + " points to your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " + new_score_push)
+            teamChannel.send(message.author.username + " has just added " + amendment + " points to your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " + new_score_push)
           } else {
             message.reply("I could not inform " + team + " about the amendment to their score, since I could not find a text channel for them.  I also tried " + dictionary[team])
           }
@@ -52,11 +52,11 @@ exports.run = async (message, args) => {
         let teamChannel = message.guild.channels.cache.find(channel => channel.name === team);
         console.log(teamChannel);
         if(teamChannel){
-          teamChannel.send(message.author.displayName + " has just deducted " + amendment + " points from your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " + new_score_push)
+          teamChannel.send(message.author.username + " has just deducted " + amendment + " points from your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " + new_score_push)
         } else if (dictionary[team]) {
           let teamChannel = message.guild.channels.cache.find(channel => channel.name === dictionary[team])
           if(teamChannel){
-            teamChannel.send(message.author.displayName + " has just deducted " + amendment + " points from your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " + new_score_push)
+            teamChannel.send(message.author.username + " has just deducted " + amendment + " points from your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " + new_score_push)
           } else {
             message.reply("I could not inform " + team + " about the amendment to their score, since I could not find a text channel for them.  I also tried " + dictionary[team])
           }
