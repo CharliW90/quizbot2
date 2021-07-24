@@ -191,10 +191,14 @@ exports.run = async (message, args) => {
         var number_of_positions = ordered_scores.length;
         while (number_of_positions > 0) {
           let score_request = ordered_scores[poscounter];
+          console.log("Score " + poscounter + ": " + score_request);
+          console.log("Previous Score: " + prevScore);
           if(score_request == prevScore){
+            console.log("Scores match - set position to: " + position);
             positions.push(position);
           } else {
             position++;
+            console.log("Scores do not match - set position to: " + position);
             positions.push(position);
           }
           prevScore = score_request;
