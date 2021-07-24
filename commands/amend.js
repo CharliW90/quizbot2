@@ -9,12 +9,12 @@ exports.run = async (message, args) => {
     var team = args[1];
     var operator = args[2];
     var amendment = Math.floor(args[3]);
-    if(!scoreboard[round_number]){
-      message.reply("I could not find a round number of " + round_number);
+    if(!scoreboard[team]){
+      message.reply("I could not find an entry for " + team);
       return;
     }
-    if(!scoreboard[round_number][team]){
-      message.reply("I could not find a results for " + team + " in round number " + round_number);
+    if(!scoreboard[team][round_number]){
+      message.reply("I could not find results for round number " + round_number + " for the team " + team);
       return;
     }
     if(operator === "+"){
