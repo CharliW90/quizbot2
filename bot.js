@@ -196,10 +196,14 @@ exports.cooldownTimeSet = cooldownTimeSet;
 
 var admin_channel;
 exports.admin_channel = admin_channel;
+var csv_channel;
+exports.csv_channel = csv_channel;
 
 client.on("ready", () => {
     admin_channel = client.channels.cache.find(channel => channel.name === admin_channel_name);
     exports.admin_channel = admin_channel;
+    csv_channel = client.channels.cache.find(channel => channel.name === "csv-posts");
+    exports.csv_channel = csv_channel;
     client.user.setActivity({name: bot_activity_name, type: bot_activity_type, url: bot_activity_url})
         .then(presence => console.log(`Activity set to ${presence.activities[0]}`))
         .catch(console.error);
@@ -213,6 +217,17 @@ client.on("ready", () => {
 	admin_channel.send("Bot Restarted. " + bot_startup_message + " Bot will now not restart for another 24hrs");
     }
     setQuizTeamCategoryChannel();
+});
+
+client.on('message', async message => {
+  if (message.channel === csv_channel) {
+    try {
+      message.reply("I have seen this...");
+    } catch(e) {
+      throw e
+    }
+    return;
+  }
 });
 
 client.on("message", async (message, args) => {
