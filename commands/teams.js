@@ -26,15 +26,17 @@ exports.run = async (message, args, override) => {
     quizTeamChannels.forEach(channel => {
       if (channel.type == 'text') {
         teamCount++;
-		    teams.push(channel.name);
+	teams.push(channel.name);
       }
-	  });
-    const teams_embed = new Discord.MessageEmbed()
-      .setColor("PURPLE")
-      .setTitle('Registered Teams')
-      .setDescription('A short list of registered teams on the server.')
-    teams_embed.addField("Team Names", teams.join("\n"));
-    await message.channel.send(teams_embed);
+    });
+    if(teamCount > 0) {
+      const teams_embed = new Discord.MessageEmbed()
+        .setColor("PURPLE")
+        .setTitle('Registered Teams')
+        .setDescription('A short list of registered teams on the server.')
+      teams_embed.addField("Team Names", teams.join("\n"));
+      await message.channel.send(teams_embed);
+    }
   } catch (e) {
     throw e
   }
