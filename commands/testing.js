@@ -4,27 +4,16 @@ exports.run = async (message, args) => {
   var teamCount = base.teamCount;
   var admin_channel = base.admin_channel;
   var teamsObject = require('/app/objects/teams.js');
+  const request = require('request');
   try {
     // ------------------------ EDIT BELOW THIS LINE AS MUCH AS YOU LIKE -----------------------------------------
-    const http = require("http")
-    http
-      .request(
-        {
-          hostname: "https://script.google.com",
-          path: "/macros/s/AKfycby2Wqb6CaV-EUiWVSTUZ6S0ZDH8yiFs6mL9KnM_gC1jWX6mv3LQYKuqCxKP-rdbUIessA/exec"
-        },
-        res => {
-        let data = ""
-
-        res.on("data", d => {
-          data += d
-        })
-        res.on("end", () => {
-          console.log(data)
-        })
-      }
-    )
-  .end()
+    request.get("https://script.google.com/macros/s/AKfycby2Wqb6CaV-EUiWVSTUZ6S0ZDH8yiFs6mL9KnM_gC1jWX6mv3LQYKuqCxKP-rdbUIessA/exec", async (error, response, body) => {
+        console.log("Triggering Forms...");
+        if (!error && response.statusCode == 200) {
+          var success = body;
+          console.log(success);
+        }
+      });   
     // ------------------------ EDIT ABOVE THIS LINE AS MUCH AS YOU LIKE -----------------------------------------
   } catch (e) {
     throw e;
