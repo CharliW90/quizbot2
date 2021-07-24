@@ -21,6 +21,7 @@ exports.run = async (message, args) => {
     if(operator === "+"){
       if(typeof amendment === 'number'){
         message.reply("Congrats!  This score addition will work, if you code it here.")
+        console.log(team_result_embeds[round_number][team])
       } else {
         message.reply("I need to know the amount to add to the score - the amount must be a number.  " + amendment + " is not a number.");
         return;
@@ -28,6 +29,7 @@ exports.run = async (message, args) => {
     } else if(operator === "-"){
       if(typeof amendment === 'number'){
         message.reply("Congrats!  This score subtraction will work, if you code it here.")
+        console.log(team_result_embeds[round_number][team])
       } else {
         message.reply("I need to know the amount to subtract from the score - the amount must be a number.  " + amendment + " is not a number.");
         return;
