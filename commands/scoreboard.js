@@ -169,8 +169,10 @@ exports.run = async (message, args) => {
             var round_six_num = 0;
           }
           var total_score = (round_one_num + round_two_num + round_three_num + round_four_num + round_five_num + round_six_num);
+          console.log("total_score was set to: " + total_score);
           while(leaderboard[total_score]) {
             total_score = total_score + 0.01;
+            console.log("added 0.01 to get: " + total_score);
           }
           leaderboard[total_score] = team;
           var stringify = "Round One: " + round_one + "\n" + "Round Two: " + round_two + "\n" + "Round Three: " + round_three + "\n" + "Round Four: " + round_four + "\n" + "Round Five: " + round_five + "\n" + "Round Six: " + round_six;
