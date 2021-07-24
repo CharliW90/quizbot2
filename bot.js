@@ -240,7 +240,7 @@ client.on("message", async (message, args) => {
 	
 	if (message.member.hasPermission("MANAGE_ROLES")) {
 	    console.log("ADMIN Command " + command + " requested by " + message.author.username);
-	    cmd.run(message, args);
+	    cmd.run(message, args, 1);
 	} else if (command === 'help') {
 	    console.log("HELP command requested by " + message.author.username + " in the " + message.channel.name + " channel");
 	    cmd.run(message, args, 0);
