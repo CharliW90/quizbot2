@@ -31,15 +31,22 @@ exports.run = async (message, args) => {
         .setTitle('Merger Completed')
       while (round_counter <= 6) {
         if (scoreboard[remove_team][round_counter]) {
-          if (scoreboard[correct_team][round_counter]) {
-            successful_merge_embed.addField("Round " + round_counter + " Data", "ERROR.  Data exists for both teams.")
-            successful_merge_embed.addField(correct_team, scoreboard[correct_team][round_counter]);
-            successful_merge_embed.addField(remove_team, scoreboard[remove_team][round_counter]);
-          } else {
+          if (!scoreboard[correct_team][round_counter]) {
             var result = scoreboard[remove_team][round_counter];
             await base.scoreboardParse(correct_team, round_counter, result);
             successful_merge_embed.addField("Round " + round_counter + " Data", "MERGED. " + correct_team + ": " + scoreboard[correct_team][round_counter]);
             await base.scoreboardDelete("merge", remove_team, round_counter);
+          } else {
+            if(scoreboard[correct_team][round_counter] == "Awaiting data..."){
+              var result = scoreboard[remove_team][round_counter];
+               await base.scoreboardParse(correct_team, round_counter, result);
+              successful_merge_embed.addField("Round " + round_counter + " Data", "MERGED. " + correct_team + ": " + scoreboard[correct_team][round_counter]);
+              await base.scoreboardDelete("merge", remove_team, round_counter);
+            } else {
+              successful_merge_embed.addField("Round " + round_counter + " Data", "ERROR.  Data exists for both teams.")
+              successful_merge_embed.addField(correct_team, scoreboard[correct_team][round_counter]);
+              successful_merge_embed.addField(remove_team, scoreboard[remove_team][round_counter]);
+            }
           }
         } else {
           successful_merge_embed.addField("Round " + round_counter + " Data", "SKIPPED.  No Round " + round_counter + " data for " + remove_team + ".")
