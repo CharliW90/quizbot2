@@ -9,10 +9,9 @@ exports.run = async (message, args, override) => {
   if (timeDiff > 5 || message.channel.parentID === quizTeamsParentID || override === 1) {
     try {
       if(message.member.hasPermission("MANAGE_ROLES")){
-        console.log("HELP command was requested by Admin")
-        const help_embed = new Discord.MessageEmbed()
+        const admin_help_embed = new Discord.MessageEmbed()
         .setColor("PURPLE")
-        .setTitle('QuizBot Commands')
+        .setTitle('QuizBot Admin Commands')
         .setDescription('Admins have access to a all commands in this bot.  They are described below.')
         .addFields(
           {name: 'register', value: "Registers a 'team-name' and @team-member(s)"},
@@ -38,11 +37,11 @@ exports.run = async (message, args, override) => {
           {name: 'question', value: "Sends a message, that was saved via the ++set command, to all quiz team text channels"},
           {name: 'usage', value: "```++question [number]```"}
         );
-        await message.channel.send(help_embed);
+        await message.channel.send(admin_help_embed);
       } else {
         const help_embed = new Discord.MessageEmbed()
           .setColor("PURPLE")
-          .setTitle('QuizBot Commands')
+          .setTitle('QuizBot Team Captain Commands')
           .setDescription('Team Captains have access to a limited number of commands in this bot.  They are described below.  Only those server members with the @Team Captain role are able to use these commands.')
           .addFields(
             {name: 'add', value: "Allows you to add people to your team."},
