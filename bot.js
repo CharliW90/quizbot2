@@ -222,7 +222,7 @@ client.on("ready", () => {
 client.on('message', async message => {
   if (message.channel === csv_channel) {
     try {
-      message.reply("I have seen this...");
+      console.log(message);
     } catch(e) {
       throw e
     }
