@@ -6,7 +6,7 @@ exports.run = async (message, args) => {
   var admin_channel = base.admin_channel;
   var team_result_embeds = base.answer_embeds;
   // first we check if a valid parameter has been given alongside the command.  If not, we display the help message to tell the user what parameters to use.
-  if (args[0] != "check" && args[0] != "delete" && args[0] != "merge" && args[0] != "results" && args[0] != "debug") {
+  if (args[0] != "check" && args[0] != "delete" && args[0] != "merge" && args[0] != "results" && args[0] != "debug" && args[0] != "investigate") {
     console.log("No parameter provided - replying with help message");
     const scoreboard_help_embed = new Discord.MessageEmbed()
       .setColor('PURPLE')
@@ -21,6 +21,8 @@ exports.run = async (message, args) => {
         {name: 'usage', value: "```++scoreboard merge team-name-to-keep team-name-to-discard```"},
         {name: 'results', value: "Triggers the calculation of total scores, and presents #admin-chat with an ordered scoreboard."},
         {name: 'usage', value: "```++scoreboard results```"},
+        {name: 'investigate', value: "Triggers the calculation of individual team scores, round-by-round, and presents them in #admin-chat."},
+        {name: 'usage', value: "```++scoreboard investigate```"},
       );
     message.channel.send(scoreboard_help_embed);
   } else {
@@ -117,8 +119,8 @@ exports.run = async (message, args) => {
       } catch (e) {
         throw e;
       }
-    } else if (parameter == "results") {
-      // Below is the code we run for the SCOREBOARD RESULTS command -------------------------------------------------------------------
+    } else if (parameter == "results" || parameter == "investigate") {
+      // Below is the code we run for the SCOREBOARD RESULTS or INVESTIGATE commands -------------------------------------------------------------------
       var leaderboard = {};
       var team_scores = {};
       try {
@@ -178,55 +180,59 @@ exports.run = async (message, args) => {
       // Part Two: Order the teams by total score, and then pull their team_scores in order
         var table_of_scores = [];
         var table_of_names = [];
+        var positions = []
         var total_scores_across_teams = Object.keys(leaderboard);
         var ordered_scores = total_scores_across_teams.sort(function(a, b){return b - a});
         var number_of_total_scores = ordered_scores.length;
-        var counter = 0;
-        const scoreboard_embed = new Discord.MessageEmbed()
-          .setColor('PURPLE')
-          .setTitle('Detailed Team Scores')
-        while (number_of_total_scores > 0) {
-          let score_request = ordered_scores[counter];
-          let team_pull = leaderboard[score_request];
-          let actual_score = Math.floor(score_request);
-          table_of_scores.push(actual_score);
-          table_of_names.push(team_pull);
-          scoreboard_embed.addField(team_pull, actual_score);
-          scoreboard_embed.addField("Total Score: ", team_scores[team_pull]);
-          counter++;
-          number_of_total_scores--;
+        var position = 0;
+        var poscounter = 0;
+        var teamcounter = 0;
+        var prevScore = 0;
+        var number_of_positions = ordered_scores.length;
+        while (number_of_positions > 0) {
+          let score_request = ordered_scores[poscounter];
+          if(score_request == prevScore){
+            positions.push(position);
+          } else {
+            position++;
+            positions.push(position);
+          }
+          prevScore = score_request;
+          poscounter++;
+          number_of_positions--;
         }
-        admin_channel.send(scoreboard_embed);
+        if(parameter == "investigate"){
+          const scoreboard_embed = new Discord.MessageEmbed()
+            .setColor('PURPLE')
+            .setTitle('Detailed Team Scores')
+          while (number_of_total_scores > 0) {
+            let score_request = ordered_scores[teamcounter];
+            let team_pull = leaderboard[score_request];
+            let actual_score = Math.floor(score_request);
+            table_of_scores.push(actual_score);
+            table_of_names.push(team_pull);
+            scoreboard_embed.addField(team_pull, actual_score);
+            scoreboard_embed.addField("Results by round:", team_scores[team_pull]);
+            teamcounter++;
+            number_of_total_scores--;
+          }
+          admin_channel.send(scoreboard_embed);
+          return;
+        }
 
       // Part Three: Create a shorter embed table of just team names and results
-        var x = 3;
-        var y = 0
-        var xtot = table_of_names.length;
-
-        while (xtot > y) {
-          if (x > xtot) {
-            x = xtot;
-          }
-          const scoreboard_short_embed = new Discord.MessageEmbed()
-            .setColor('DARK_PURPLE')
-            .setTitle('Scoreboard ' + Math.ceil(x/3) + '/' + Math.ceil(xtot/3))
-          scoreboard_short_embed.addField("Team Name", table_of_names.slice(y, x), true);
-          scoreboard_short_embed.addField("Team Name", table_of_scores.slice(y, x), true);
-          admin_channel.send(scoreboard_short_embed);
-          x = x+3;
-          y = y+3
-        }
-      // Test a shorter version
         const short_scores = new Discord.MessageEmbed()
           .setColor('DARK_PURPLE')
-          .setTitle('Scoreboard (TEST)')
+          .setTitle('Scoreboard')
         short_scores.addField("Team Name", table_of_names.join("\n"), true);
         short_scores.addField("Team Score", table_of_scores.join("\n"), true);
+        short_scores.addField("Position", positions.join("\n"), true);
         admin_channel.send(short_scores);
       } catch (e) {
         throw e;
       }
     } else if (parameter == "debug") {
+      // Below is the code we run for the SCOREBOARD DEBUG command -------------------------------------------------------------------
       console.log(scoreboard);
       console.log(dictionary);
       console.log(leaderboard);
