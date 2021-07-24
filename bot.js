@@ -224,17 +224,6 @@ client.on("message", async (message, args) => {
 
 	const cmd = client.commands.get(command);
   	if (!cmd) return;
-	
-	if (message.channel.type === 'dm') {
-	    if (command === 'help') {
-	        console.log(message.author.username + " has used the HELP command in their DM with the QuizBot.");
-		cmd.run(message, args, 1);
-		return;
-	    } else {
-		console.log(message.author.username + " has used the " + command + " command in their DM with the QuizBot.  I cannot handle this right now.  Ignoring...");
-		return;
-	    }
-	}
 	    
 	let team_captain_id = message.guild.roles.cache.find(role => role.name === "Team Captain").id;
 	
