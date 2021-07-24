@@ -9,7 +9,7 @@ exports.run = async (message, args) => {
     var round_number = args[0];
     var team = args[1];
     var operator = args[2];
-    var amendment = args[3];
+    var amendment = Math.floor(args[3]);
     if(!team_result_embeds[round_number]){
       message.reply("I could not find a round number of " + round_number);
       return;
