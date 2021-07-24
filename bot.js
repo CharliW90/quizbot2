@@ -63,7 +63,7 @@ fs.readdir("./commands/", (err, files) => {
 exports.commands = client.commands;
 
 var quizTeamsParentID;
-exports.quizTeamsParentID = quizTeamsParentID;
+exports.quizTeamsParentID = quizTeamsParentID;  
 async function setQuizTeamCategoryChannel() {
   if (client.channels.cache.find(CategoryChannel => CategoryChannel.name == "Quiz Teams")) {
     quizTeamsParentID = client.channels.cache.find(CategoryChannel => CategoryChannel.name == "Quiz Teams").id;
