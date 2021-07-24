@@ -66,6 +66,7 @@ exports.run = async (message, args) => {
             teamCount++;
             var tc;
             var vc;
+            var textChannelActualName;
             var all_team_members = [];
             await base.teamCountParse(teamCount);
             const role_everyone = message.guild.roles.cache.find(role => role.name === '@everyone');
@@ -88,7 +89,8 @@ exports.run = async (message, args) => {
                 ]
             })
                 .then(function(response) {
-                    tc = response.id
+                    tc = response.id;
+                    textChannelActualName = response.name;
             });
             success_message.push('Text channel created for: ' + createdRole.name);
             await message.guild.channels.create(createdRole.name, {
@@ -151,7 +153,8 @@ exports.run = async (message, args) => {
             console.log(textChannelTeamName);
             console.log(newTeamName);
             console.log(createdRole.name);
-            await base.scoreboardSet(textChannelTeamName);
+            console.log(textChannelActualName);
+            await base.scoreboardSet(textChannelActualName);
             if (newTeamName != textChannelTeamName) {
               console.log("Adding Dictionary entry for " + newTeamName + " to link to " + textChannelTeamName + ".");
               await base.team_dictionaryParse(newTeamName, textChannelTeamName);
