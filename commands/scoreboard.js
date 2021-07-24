@@ -195,7 +195,7 @@ exports.run = async (message, args) => {
           if(actual_score == prevScore){
             positions.push(position);
           } else {
-            position++;
+            position = poscounter+1;
             positions.push(position);
           }
           prevScore = actual_score;
