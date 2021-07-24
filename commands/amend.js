@@ -25,11 +25,11 @@ exports.run = async (message, args) => {
         //var new_score = score + amendment;
         //var new_score_push = new_score + "/" + scorePoss;
         //await base.scoreboardParse(team, round_number, new_score_push);
-        //let teamChannel = message.guild.channels.cache.find(channel => channel.name === team);
+        let teamChannel = message.guild.channels.cache.find(channel => channel.name === team);
         message.reply("Congrats!  This score addition will work, if you code it here.");
         console.log(scoreboard[team][round_number]);
         if(teamChannel){
-          teamChannel.send(message.author + " has just added " + amendment + " points to your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " new_score_push);
+          teamChannel.send(message.author + " has just added " + amendment + " points to your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " new_score_push)
         }
       } else {
         message.reply("I need to know the amount to add to the score - the amount must be a number.  " + amendment + " is not a number.");
