@@ -147,11 +147,11 @@ exports.run = async (message, args) => {
                         {name: 'Team Members', value: team_members.join('\n')},
                     );
                 await message.channel.send(success_embed);
+                await base.scoreboardSet(textChannelTeamName);
             }
             if (newTeamName != textChannelTeamName) {
               console.log("Adding Dictionary entry for " + newTeamName + " to link to " + textChannelTeamName + ".");
               await base.team_dictionaryParse(newTeamName, textChannelTeamName);
-              await base.scoreboardSet(textChannelTeamName);
             }
             await teamsObject.register(teamCount, createdRole.name, tc, vc, all_team_members, teamColour);
             member_Captain.send("Hi there, and welcome to the Virtual Quiz!  :grin:  As the Team Captain, you are able to use my 'add', 'remove', and 'promote' commands and you also have access to the 'ask-the-quizmasters' text channel to speak to JoRo and Arcadius.  If you need any help with my commands just use ++help in your text channel.  Good luck, have fun!  :heart:");
