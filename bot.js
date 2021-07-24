@@ -227,7 +227,7 @@ client.on("message", async (message, args) => {
     try {
         if (message.channel === csv_channel) {
 	  message.react('✅');
-          admin_channel.send("message received in " + message.channel.name);
+          log_channel.send("message received in " + message.channel.name);
           console.log(message.content);
           return;
         }
