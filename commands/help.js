@@ -8,7 +8,7 @@ exports.run = async (message, args, override) => {
   let timeDiff = ((requestTime - cooldownTime)/60000).toFixed(2);
   if (timeDiff > 5 || message.channel.parentID === quizTeamsParentID || override === 1) {
     try {
-      if(message.member.hasPermission("MANAGE_ROLES")){
+      if(override === 1){
         const admin_help_embed = new Discord.MessageEmbed()
         .setColor("PURPLE")
         .setTitle('QuizBot Admin Commands')
