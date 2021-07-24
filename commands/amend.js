@@ -65,6 +65,9 @@ exports.run = async (message, args) => {
       } else {
         message.reply("I need to know the amount to deduct from the score - the amount must be a number.  " + amendment + " is not a number.");
         return;
+      }
+    } else {
+      message.reply("I do not know what to do with the operator " + operator + " !  Please use + or -")'
     }
   } catch (e) {
     throw e;
