@@ -51,16 +51,20 @@ exports.run = async (message, args) => {
         await base.scoreboardParse(team, round_number, new_score_push);
         let teamChannel = message.guild.channels.cache.find(channel => channel.name === team);
         if(teamChannel){
-          teamChannel.send(message.author + " has just deducted " + amendment + " points from your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " new_score_push);
+          teamChannel.send(message.author + " has just deducted " + amendment + " points from your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " new_score_push)
+        } else if (dictionary[team]) {
+          let teamChannel = message.guild.channels.cache.find(channel => channel.name === dictionary[team]);
+          if(teamChannel){
+            teamChannel.send(message.author + " has just deducted " + amendment + " points from your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " new_score_push)
+          } else {
+            message.reply("I could not inform " + team + " about the amendment to their score, since I could not find a text channel for them.  I also tried " + dictionary[team])
+          }
+        } else {
+          message.reply("I could not inform " + team + " about the amendment to their score, since I could not find a text channel for them.")
         }
-        message.reply("Team " + team + "'s score for Round " + round_number + " has been amended from " + relevant_round + " to " + base.scoreboard[team][round_number])
       } else {
-        message.reply("I need to know the amount to subtract from the score - the amount must be a number.  " + amendment + " is not a number.");
+        message.reply("I need to know the amount to deduct from the score - the amount must be a number.  " + amendment + " is not a number.");
         return;
-      }
-    } else {
-      message.reply("I do not know what to do with the operator " + operator + " !  Please use + or - ");
-      return;
     }
   } catch (e) {
     throw e;
