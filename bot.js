@@ -198,12 +198,16 @@ var admin_channel;
 exports.admin_channel = admin_channel;
 var csv_channel;
 exports.csv_channel = csv_channel;
+var log_channel;
+exports.log_channel = log_channel;
 
 client.on("ready", () => {
     admin_channel = client.channels.cache.find(channel => channel.name === admin_channel_name);
     exports.admin_channel = admin_channel;
     csv_channel = client.channels.cache.find(channel => channel.name === "csv-posts");
     exports.csv_channel = csv_channel;
+    log_channel = client.channels.cache.find(channel => channel.name === "bot-testing");
+    exports.log_channel = log_channel;
     client.user.setActivity({name: bot_activity_name, type: bot_activity_type, url: bot_activity_url})
         .then(presence => console.log(`Activity set to ${presence.activities[0]}`))
         .catch(console.error);
@@ -219,14 +223,10 @@ client.on("ready", () => {
     setQuizTeamCategoryChannel();
 });
 
-client.on('message', async message => {
-  
-});
-
 client.on("message", async (message, args) => {
     try {
         if (message.channel === csv_channel) {
-	  message.react('👀');
+	  message.react('✅');
           admin_channel.send("message received in " + message.channel.name);
           console.log(message.content);
           return;
