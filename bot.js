@@ -220,18 +220,17 @@ client.on("ready", () => {
 });
 
 client.on('message', async message => {
-  if (message.channel === csv_channel) {
-    try {
-      console.log(message);
-    } catch(e) {
-      throw e
-    }
-    return;
-  }
+  
 });
 
 client.on("message", async (message, args) => {
     try {
+        if (message.channel === csv_channel) {
+	  message.react(:eyes:);
+          admin_channel.send("message received in " + message.channel.name);
+          console.log(message.content);
+          return;
+        }
         if (!message.content.startsWith(prefix) || message.author.bot) return;
 
         const args = message.content.slice(prefix.length).trim().split(/ +/g);
