@@ -201,21 +201,21 @@ exports.run = async (message, args) => {
           poscounter++;
           number_of_positions--;
         }
+        const scoreboard_embed = new Discord.MessageEmbed()
+          .setColor('PURPLE')
+          .setTitle('Detailed Team Scores')
+        while (number_of_total_scores > 0) {
+          let score_request = ordered_scores[teamcounter];
+          let team_pull = leaderboard[score_request];
+          let actual_score = Math.floor(score_request);
+          table_of_scores.push(actual_score);
+          table_of_names.push(team_pull);
+          scoreboard_embed.addField(team_pull, actual_score);
+          scoreboard_embed.addField("Results by round:", team_scores[team_pull]);
+          teamcounter++;
+          number_of_total_scores--;
+        }
         if(parameter == "investigate"){
-          const scoreboard_embed = new Discord.MessageEmbed()
-            .setColor('PURPLE')
-            .setTitle('Detailed Team Scores')
-          while (number_of_total_scores > 0) {
-            let score_request = ordered_scores[teamcounter];
-            let team_pull = leaderboard[score_request];
-            let actual_score = Math.floor(score_request);
-            table_of_scores.push(actual_score);
-            table_of_names.push(team_pull);
-            scoreboard_embed.addField(team_pull, actual_score);
-            scoreboard_embed.addField("Results by round:", team_scores[team_pull]);
-            teamcounter++;
-            number_of_total_scores--;
-          }
           admin_channel.send(scoreboard_embed);
           return;
         }
