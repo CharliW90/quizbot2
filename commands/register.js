@@ -147,6 +147,7 @@ exports.run = async (message, args) => {
                         {name: 'Team Members', value: team_members.join('\n')},
                     );
                 await message.channel.send(success_embed);
+                console.log("now sending " + textChannelTeamName + " to the scoreboardSet command.");
                 await base.scoreboardSet(textChannelTeamName);
             }
             if (newTeamName != textChannelTeamName) {
