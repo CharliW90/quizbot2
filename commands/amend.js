@@ -60,9 +60,9 @@ exports.run = async (message, args) => {
         //  } else {
         //    message.reply("I could not inform " + team + " about the amendment to their score, since I could not find a text channel for them.  I also tried " + dictionary[team])
         //  }
-        } else {
-          message.reply("I could not inform " + team + " about the amendment to their score, since I could not find a text channel for them.")
-        }
+        //} else {
+        //  message.reply("I could not inform " + team + " about the amendment to their score, since I could not find a text channel for them.")
+        //}
       } else {
         message.reply("I need to know the amount to deduct from the score - the amount must be a number.  " + amendment + " is not a number.")
         return;
