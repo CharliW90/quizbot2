@@ -235,7 +235,6 @@ exports.run = async (message, args) => {
       // Below is the code we run for the SCOREBOARD DEBUG command -------------------------------------------------------------------
       console.log(scoreboard);
       console.log(dictionary);
-      console.log(leaderboard);
     } else {
       // if somehow the original "if not one of these four parameters" check passed, but then when we got to it the parameter did not match one of the four (this should never happen) we pop a little message into admin chat to confuse the hell out of everyone...
       try {
