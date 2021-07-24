@@ -29,7 +29,7 @@ exports.run = async (message, args) => {
         message.reply("Congrats!  This score addition will work, if you code it here.");
         console.log(scoreboard[team][round_number]);
         if(teamChannel){
-          teamChannel.send(message.author + " has just added " + amendment + " points to your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " new_score_push)
+          //teamChannel.send(message.author + " has just added " + amendment + " points to your score for Round " + round_number + ".  Your score for Round " + round_number + " is now " new_score_push)
         }
       } else {
         message.reply("I need to know the amount to add to the score - the amount must be a number.  " + amendment + " is not a number.");
