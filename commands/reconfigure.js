@@ -7,6 +7,7 @@ exports.run = async (message, args) => {
         quizTeamChannels.forEach(channel => {
             if (channel.type == 'text') {
                 teamCount++;
+		base.scoreboardSet(channel.name);
             }
 	});
 	if (teamCount > 0) {
