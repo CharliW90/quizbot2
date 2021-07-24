@@ -117,9 +117,11 @@ async function scoreboardParse(team_name, round_num, result) {
 exports.scoreboardParse = scoreboardParse;
 
 async function scoreboardSet(team_name) {
+  console.log("scoreboardSet command triggered with " + team_name + " as the Team Name.");
   if (scoreboard[team_name]) {
     admin_channel.send("I tried to set up an empty scoreboard entry for " + team_name + ", but an entry already exists!");
   } else {
+    console.log("...attempting to create empty scoreboard entry for " + team_name);
     scoreboard[team_name] = {};
   }
   exports.scoreboard = scoreboard;
