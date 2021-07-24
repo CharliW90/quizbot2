@@ -120,7 +120,8 @@ async function scoreboardSet(team_name) {
   if (scoreboard[team_name]) {
     admin_channel.send("I tried to set up an empty scoreboard entry for " + team_name + ", but an entry already exists!");
   } else {
-    scoreboard[team_name] = {1,2,3,4,5,6};
+    scoreboard[team_name] = {};
+    scoreboard[team_name][1] = "Awaiting data...";
   }
   exports.scoreboard = scoreboard;
 }
