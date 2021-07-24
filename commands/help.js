@@ -8,27 +8,60 @@ exports.run = async (message, args, override) => {
   let timeDiff = ((requestTime - cooldownTime)/60000).toFixed(2);
   if (timeDiff > 5 || message.channel.parentID === quizTeamsParentID || override === 1) {
     try {
-      const help_embed = new Discord.MessageEmbed()
+      if(message.member.hasPermission("MANAGE_ROLES")){
+        console.log("HELP command was requested by Admin")
+        const help_embed = new Discord.MessageEmbed()
         .setColor("PURPLE")
         .setTitle('QuizBot Commands')
-        .setDescription('Team Captains have access to a limited number of commands in this bot.  They are described below.  Only those server members with the @Team Captain role are able to use these commands.')
+        .setDescription('Admins have access to a all commands in this bot.  They are described below.')
         .addFields(
-          {name: 'add', value: "Allows you to add people to your team."},
-          {name: 'usage', value: "```++add @teamname @person```"},
-          {name: 'notes', value: "You may add multiple people at once with this command, simply @ multiple people after the team name."},
+          {name: 'register', value: "Registers a 'team-name' and @team-member(s)"},
+          {name: 'usage', value: "```++register 'team name as written' @person (will be captain) @other-member(s)```"},
+          {name: 'reset', value: "Used at the end of a quiz (or some days later).  Deletes all registered Quiz Team Text and Voice channels, deletes the Team Roles, and removes the 'Team Captain' role from anyone who has it."},
+          {name: 'usage', value: "```++reset```"},
+          {name: 'reconfigure', value: "Used to try to recover certain information after the bot crashes or restarts mid-quiz.  Cannot undo the ++reset command, and does not recover any answers/results/scoreboard information."},
+          {name: 'usage', value: "```++reconfigure```"},
           {name: '\u200B', value: '\u200B' },
-          {name: 'remove', value: "Allows you to remove people from your team."},
-          {name: 'usage', value: "```++remove @teamname @person```"},
-          {name: 'notes', value: "You may remove multiple people at once with this command, simply @ multiple people after the team name."},
+          {name: 'answers', value: "The first step in getting QuizBot to handle the scores: copy the .csv answers from a google form and paste into this command for a specific round"},
+          {name: 'usage', value: "```++answers [round-number] <ctrl+v>```"},
+          {name: 'results', value: "The second step in getting QuizBot to handle the scores: use this command to push all of the previously loaded 'answers' out to the team text channels"},
+          {name: 'usage', value: "```++results [round-number]```"},
+          {name: 'retry', value: "An intermediary step in getting QuizBot to handle the scores: use this command to send a team's answers to the correct text channel (when QuizBot fails to identify it automatically)"},
+          {name: 'usage', value: "```++retry [round-number] incorrect-team-name #text-channel```"},
+          {name: 'scoreboard', value: "The final step in getting QuizBot to handle the scores: this command handles the scoreboard, but has a number of sub-commands you must use.  For details on these, use the command ++scoreboard"},
+          {name: 'usage', value: "```++scoreboard  (this will trigger the scoreboard command's help message with details on the sub-commands)```"},
           {name: '\u200B', value: '\u200B' },
-          {name: 'promote', value: "Allows you to promote a team member to be the new Team Captain."},
-          {name: 'usage', value: "```++promote @person```"},
-          {name: 'notes', value: "Only the current Team Captain can use this command - they will then lose their Team Captain status and the new Team Captain will be in place."}
+          {name: 'announce', value: "Sends a message to all quiz team text channels"},
+          {name: 'usage', value: "```++announce 'message you wish to send'```"},
+          {name: 'set', value: "Stores a message, under a number, that you can send to all quiz team text channels at a later time (was designed to store questions that could then be triggered later to go out to all teams)"},
+          {name: 'usage', value: "```++set [number] 'message you wish to send'```"},
+          {name: 'question', value: "Sends a message, that was saved via the ++set command, to all quiz team text channels"},
+          {name: 'usage', value: "```++question [number]```"}
         );
-      await message.channel.send(help_embed);
-      if (!message.channel.parentID === quizTeamsParentID && !override === 1) {
-        console.log("Command was used in a public channel - cooldownTime resetting");
-        await base.cooldownTimeSet();
+        await message.channel.send(help_embed);
+      } else {
+        const help_embed = new Discord.MessageEmbed()
+          .setColor("PURPLE")
+          .setTitle('QuizBot Commands')
+          .setDescription('Team Captains have access to a limited number of commands in this bot.  They are described below.  Only those server members with the @Team Captain role are able to use these commands.')
+          .addFields(
+            {name: 'add', value: "Allows you to add people to your team."},
+            {name: 'usage', value: "```++add @teamname @person```"},
+            {name: 'notes', value: "You may add multiple people at once with this command, simply @ multiple people after the team name."},
+            {name: '\u200B', value: '\u200B' },
+            {name: 'remove', value: "Allows you to remove people from your team."},
+            {name: 'usage', value: "```++remove @teamname @person```"},
+            {name: 'notes', value: "You may remove multiple people at once with this command, simply @ multiple people after the team name."},
+            {name: '\u200B', value: '\u200B' },
+            {name: 'promote', value: "Allows you to promote a team member to be the new Team Captain."},
+            {name: 'usage', value: "```++promote @person```"},
+            {name: 'notes', value: "Only the current Team Captain can use this command - they will then lose their Team Captain status and the new Team Captain will be in place."}
+          );
+        await message.channel.send(help_embed);
+        if (!message.channel.parentID === quizTeamsParentID && !override === 1) {
+          console.log("Command was used in a public channel - cooldownTime resetting");
+          await base.cooldownTimeSet();
+        }
       }
     } catch (e) {
       throw e
