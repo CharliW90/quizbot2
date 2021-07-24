@@ -150,10 +150,6 @@ exports.run = async (message, args) => {
                     );
                 await message.channel.send(success_embed);
             }
-            console.log(textChannelTeamName);
-            console.log(newTeamName);
-            console.log(createdRole.name);
-            console.log(textChannelActualName);
             await base.scoreboardSet(textChannelActualName);
             if (newTeamName != textChannelTeamName) {
               console.log("Adding Dictionary entry for " + newTeamName + " to link to " + textChannelTeamName + ".");
