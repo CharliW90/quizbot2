@@ -4,16 +4,15 @@ exports.run = async (message, args) => {
   var teamCount = base.teamCount;
   var admin_channel = base.admin_channel;
   var teamsObject = require('/app/objects/teams.js');
-  const request = require('request');
+  const puppeteer = require('puppeteer');
   try {
     // ------------------------ EDIT BELOW THIS LINE AS MUCH AS YOU LIKE -----------------------------------------
-    request.get("https://script.google.com/macros/s/AKfycby2Wqb6CaV-EUiWVSTUZ6S0ZDH8yiFs6mL9KnM_gC1jWX6mv3LQYKuqCxKP-rdbUIessA/exec", async (error, response, body) => {
-      console.log("Triggering Forms...");
-      console.log(error)
-        if (!error && response.statusCode == 200) {
-          console.log("Triggered Forms!");
-        }
-      });   
+    (async () => {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto('https://script.google.com/macros/s/AKfycbxxcN_PR5oviPm6zcDmQxTb2uoXVh4q9xe7r-gywzhsRF7fXkl9q42IVVZ7wga_b6ZJ8A/exec');
+      await browser.close();
+    })();
     // ------------------------ EDIT ABOVE THIS LINE AS MUCH AS YOU LIKE -----------------------------------------
   } catch (e) {
     throw e;
