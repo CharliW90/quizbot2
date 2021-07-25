@@ -14,6 +14,6 @@
     "enmap": "^5.8.2",
     "jquery-csv": "^1.0.11",
     "request": "^2.88.2",
-    "mongoose": "^5.11.9"
+    "puppeteer": "^10.1.0"
   }
 }
