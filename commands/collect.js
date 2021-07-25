@@ -11,6 +11,7 @@ const url = process.env.googleScript;
         await page.goto(url);
         await browser.close();
       })();
+    }
   } catch (e) {
     throw e;
   }
