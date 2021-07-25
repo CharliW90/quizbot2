@@ -5,12 +5,14 @@ exports.run = async (message, args) => {
   var admin_channel = base.admin_channel;
   var teamsObject = require('/app/objects/teams.js');
   const puppeteer = require('puppeteer');
+  const url = process.env.googleScript;
   try {
+    console.log(url);
     // ------------------------ EDIT BELOW THIS LINE AS MUCH AS YOU LIKE -----------------------------------------
     (async () => {
       const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
       const page = await browser.newPage();
-      await page.goto('https://script.google.com/macros/s/AKfycbxxcN_PR5oviPm6zcDmQxTb2uoXVh4q9xe7r-gywzhsRF7fXkl9q42IVVZ7wga_b6ZJ8A/exec');
+      await page.goto(url);
       await browser.close();
     })();
     // ------------------------ EDIT ABOVE THIS LINE AS MUCH AS YOU LIKE -----------------------------------------
