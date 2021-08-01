@@ -1,4 +1,4 @@
-exports.run = async (message, args, announcement_title, announcement_content) => {
+exports.run = async (message, args, permission, announcement_title, announcement_content) => {
     try {
         const quizTeamChannels = message.guild.channels.cache.find(CategoryChannel => CategoryChannel.name == "Quiz Teams").children;
 	
