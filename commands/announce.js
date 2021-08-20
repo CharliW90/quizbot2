@@ -25,7 +25,5 @@ exports.run = async (message, args, permission, announcement_title, announcement
                 }
             });
 	}
-    } catch (e) {
-        throw e;
-    }
+    } catch (e) {throw e;}
 }
