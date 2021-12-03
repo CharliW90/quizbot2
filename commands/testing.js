@@ -19,8 +19,6 @@ exports.run = async (message, args) => {
                   }
                 }
             });
-        } else {
-            message.reply('there is nothing to reset!');
         }
     } catch (e) {
         throw e;
