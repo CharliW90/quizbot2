@@ -14,8 +14,13 @@ exports.run = async (message, args) => {
                 if (channel.type == 'text') {
                   //we only want to get the role from the first channel we encounter, because by the time we get to the second it has already been deleted
                   if (message.guild.roles.cache.find(role => role.id === channel.permissionOverwrites.array()[1].id)) {
+                    let n = 0;
                     console.log(channel.permissionOverwrites);
                     console.log(channel.permissionOverwrites.array());
+                    while (channel.permissionOverwrites.array()[n]) {
+                      console.log("The " + n + " itme in the array is: " + channel.permissionOverwrites.array()[n].name);
+                      n++;
+                    }
                   }
                 }
             });
