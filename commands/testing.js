@@ -16,11 +16,10 @@ exports.run = async (message, args) => {
                   if (message.guild.roles.cache.find(role => role.id === channel.permissionOverwrites.array()[1].id)) {
                     let n = 0;
                     console.log("Results for: " + channel.name);
-                    console.log(channel.permissionOverwrites);
-                    console.log(channel.permissionOverwrites.array());
                     while (channel.permissionOverwrites.array()[n]) {
-                      console.log("The " + n + " itme in the array is: " + channel.permissionOverwrites.array()[n].name);
-                      console.log("Which is ID: " + channel.permissionOverwrites.array()[n].id);
+                      let role = message.guild.roles.cache.find(role => role.id === channel.permissionOverwrites.array()[n].id)
+                      console.log("The " + n + " item in the array is: " + role.name);
+                      console.log("Which is ID: " + role.id);
                       n++;
                     }
                   }
