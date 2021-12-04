@@ -20,6 +20,9 @@ exports.run = async (message, args) => {
                   if (message.guild.roles.cache.find(role => role.id === channel.permissionOverwrites.array()[1].id)) {
                     reset_text_channels.push(channel.name);
                     const role = message.guild.roles.cache.find(role => role.id === channel.permissionOverwrites.array()[1].id)
+                    console.log("the role taken from the channel called " + channel.name + " is " + role.name);
+                    console.log("which is :");
+                    console.log(role);
                     reset_roles.push(role.name)
                     role.delete().catch(console.error);
                     channel.delete().catch(console.error);
