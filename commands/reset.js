@@ -19,7 +19,7 @@ exports.run = async (message, args) => {
                   //we only want to get the role from the first channel we encounter, because by the time we get to the second it has already been deleted
                   if (message.guild.roles.cache.find(role => role.id === channel.permissionOverwrites.array()[1].id)) {
                     reset_text_channels.push(channel.name);
-                    const role = message.guild.roles.cache.find(role => role.id === channel.permissionOverwrites.array()[2].id)
+                    const role = message.guild.roles.cache.find(role => role.id === channel.permissionOverwrites.array()[1].id)
                     reset_roles.push(role.name)
                     role.delete().catch(console.error);
                     channel.delete().catch(console.error);
