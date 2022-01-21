@@ -212,7 +212,12 @@ exports.run = async (message, args) => {
           let team_pull = leaderboard[score_request];
           let actual_score = Math.floor(score_request);
           table_of_scores.push(actual_score);
-          table_of_names.push(team_pull);
+          if (team_pull len > 45) {
+            let team_pull_push = team_pull.substr(0, 45) + "...";
+            table_of_names.push(team_pull);
+          } else {
+            table_of_names.push(team_pull);
+          }
           scoreboard_embed.addField(team_pull, actual_score);
           scoreboard_embed.addField("Results by round:", team_scores[team_pull]);
           teamcounter++;
