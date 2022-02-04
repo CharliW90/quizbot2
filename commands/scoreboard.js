@@ -212,7 +212,8 @@ exports.run = async (message, args) => {
           let team_pull = leaderboard[score_request];
           let actual_score = Math.floor(score_request);
           table_of_scores.push(actual_score);
-          if (team_pull len > 45) {
+          let team_pull_len = team_pull len;
+          if (team_pull_len > 45) {
             let team_pull_push = team_pull.substr(0, 45) + "...";
             table_of_names.push(team_pull);
           } else {
