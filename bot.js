@@ -7,6 +7,7 @@ exports.fs = fs;
 const csv = require("jquery-csv");
 exports.csv = csv;
 
+
 const client = new Discord.Client();
 
 const prefix = process.env.bot_command_prefix;
