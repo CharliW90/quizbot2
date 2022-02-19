@@ -35,13 +35,13 @@ exports.run = async (message, args) => {
             var result = scoreboard[remove_team][round_counter];
             await base.scoreboardParse(correct_team, round_counter, result);
             successful_merge_embed.addField("Round " + round_counter + " Data", "MERGED. " + correct_team + ": " + scoreboard[correct_team][round_counter]);
-            await base.scoreboardDelete("merge", remove_team, round_counter);
+            await base.scoreboardDelete(message.channel, "merge", remove_team, round_counter);
           } else {
             if(scoreboard[correct_team][round_counter] == "Awaiting data..."){
               var result = scoreboard[remove_team][round_counter];
                await base.scoreboardParse(correct_team, round_counter, result);
               successful_merge_embed.addField("Round " + round_counter + " Data", "MERGED. " + correct_team + ": " + scoreboard[correct_team][round_counter]);
-              await base.scoreboardDelete("merge", remove_team, round_counter);
+              await base.scoreboardDelete(message.channel, "merge", remove_team, round_counter);
             } else {
               successful_merge_embed.addField("Round " + round_counter + " Data", "ERROR.  Data exists for both teams.")
               successful_merge_embed.addField(correct_team, scoreboard[correct_team][round_counter]);
@@ -54,7 +54,7 @@ exports.run = async (message, args) => {
         if (round_counter < 6) {
           round_counter++;
         } else {
-          await base.scoreboardDelete("team", remove_team);
+          await base.scoreboardDelete(message.channel, "team", remove_team);
           message.channel.send(successful_merge_embed);
           return;
         }
