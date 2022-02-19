@@ -128,11 +128,11 @@ async function scoreboardSet(team_name) {
 }
 exports.scoreboardSet = scoreboardSet;
 
-async function scoreboardDelete(type, a, b) {
+async function scoreboardDelete(replyto, type, a, b) {
   if (type == "merge") {
     if (scoreboard[a][b]) {
       delete scoreboard[a][b];
-      admin_channel.send("I have deleted the scoreboard entry for " + a + " for Round Number " + b + ".");
+      replyto.send("I have deleted the scoreboard entry for " + a + " for Round Number " + b + ".");
       let prev_round = b - 1;
       if (prev_round > 0) {
         if (scoreboard[a][prev_round]) {
@@ -140,15 +140,15 @@ async function scoreboardDelete(type, a, b) {
         }
       }
     } else {
-      admin_channel.send("I could not find a scoreboard entry for " + a + " for Round Number " + b + " to delete.");
+      replyto.send("I could not find a scoreboard entry for " + a + " for Round Number " + b + " to delete.");
     }
     exports.scoreboard = scoreboard;
   } else if (type == "team") {
     if (scoreboard[a]) {
       delete scoreboard[a];
-      admin_channel.send("I have deleted the scoreboard entry for " + a + ".");
+      replyto.send("I have deleted the scoreboard entry for " + a + ".");
     } else {
-      admin_channel.send("I could not find a scoreboard entry for " + a + ".");
+      replyto.send("I could not find a scoreboard entry for " + a + ".");
     }
   } else if (type == "num") {
     let round_deletions = [];
@@ -164,11 +164,11 @@ async function scoreboardDelete(type, a, b) {
         delete scoreboard[team];
       }
     }
-    admin_channel.send("I have deleted round " + a + " for: " +  round_deletions.join(", "));
-    admin_channel.send("I did not find a round " + a + " for: " +  round_no_dels.join(", "));
+    replyto.send("I have deleted round " + a + " for: " +  round_deletions.join(", "));
+    replyto.send("I did not find a round " + a + " for: " +  round_no_dels.join(", "));
     if (answer_embeds[a]) {
       delete answer_embeds[a];
-      admin_channel.send("I have also deleted the answer embeds for round " + a + ".");
+      replyto.send("I have also deleted the answer embeds for round " + a + ".");
     }
     exports.scoreboard = scoreboard;
     exports.answer_embeds = answer_embeds;
