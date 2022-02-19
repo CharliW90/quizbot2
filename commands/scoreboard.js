@@ -51,9 +51,9 @@ exports.run = async (message, args) => {
           message.reply("You need to tell me what to delete - either a team name, or the number of a round...");
           return;
         } else if (base.scoreboard[poss_team_name]) {
-          await base.scoreboardDelete("team", poss_team_name);
+          await base.scoreboardDelete(message.channel, "team", poss_team_name);
         } else if (team_result_embeds[poss_round_num]) {
-          await base.scoreboardDelete("num", poss_round_num);
+          await base.scoreboardDelete(message.channel, "num", poss_round_num);
         } else {
           message.reply("I could not find anything to delete for " + args.join(" "));
           return;
@@ -103,7 +103,7 @@ exports.run = async (message, args) => {
               var result = scoreboard[remove_team][round_counter];
               await base.scoreboardParse(correct_team, round_counter, result);
               successful_merge_embed.addField("Round " + round_counter + " Data", "MERGED. " + correct_team + ": " + scoreboard[correct_team][round_counter]);
-              await base.scoreboardDelete("merge", remove_team, round_counter);
+              await base.scoreboardDelete(message.channel, "merge", remove_team, round_counter);
             }
           } else {
             successful_merge_embed.addField("Round " + round_counter + " Data", "SKIPPED.  No Round " + round_counter + " data for " + remove_team + ".")
@@ -111,7 +111,7 @@ exports.run = async (message, args) => {
           if (round_counter < 6) {
             round_counter++;
           } else {
-            await base.scoreboardDelete("team", remove_team);
+            await base.scoreboardDelete(message.channel, "team", remove_team);
             message.channel.send(successful_merge_embed);
             return;
           }
