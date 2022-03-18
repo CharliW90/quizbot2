@@ -118,7 +118,7 @@ async function scoreboardParse(team_name, round_num, result) {
     console.log("Looks like we don't have a scoreboard for " + team_name + " so we will make a new one");
     scoreboard[team_name] = {};
     scoreboard[team_name][round_num] = result;
-    console.log("and it now looks like this:);
+    console.log("and it now looks like this:");
     console.log(scoreboard[team_name]);
   }
   exports.scoreboard = scoreboard;
