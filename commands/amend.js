@@ -3,11 +3,15 @@ exports.run = async (message, args) => {
   var Discord = base.Discord;
   var dictionary = base.team_dictionary;
   var admin_channel = base.admin_channel;
+  console.log("The last time this command was used, it did not work - it is therefore riddled with console logs - gl;hf");
   try {
     var round_number = args[0];
     var team = args[1];
+    console.log("Team is " + team);
     var operator = args[2];
+    console.log("Operator is " + operator);
     var amendment = Math.floor(args[3]);
+    console.log("Amendment is " + amendment);
     if(!base.scoreboard[team]){
       message.reply("I could not find an entry for " + team);
       return;
@@ -17,12 +21,20 @@ exports.run = async (message, args) => {
       return;
     }
     if(operator === "+"){
+      console.log("Operator has triggered the addition version of this command");
       if(typeof amendment === 'number'){
         var relevant_round = base.scoreboard[team][round_number];
+        console.log("The round fetched looks like:");
+        console.log(relevant_round);
+        console.log ("the subsequent code appears to assume this is a score only...")
         var score = parseFloat(relevant_round.split('/')[0]);
+        console.log("The score for this round is " + score);
         var scorePoss = parseFloat(relevant_round.split('/')[1]);
+        console.log("The max poss score is apparently " + scorePoss);
         var new_score = score + amendment;
+        console.log("The new score will be " + new_score);
         var new_score_push = new_score + "/" + scorePoss;
+        console.log("and this is formatted as " + new_score_push);
         await base.scoreboardParse(team, round_number, new_score_push);
         let teamChannel = message.guild.channels.cache.find(channel => channel.name === team);
         if(teamChannel){
