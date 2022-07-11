@@ -120,6 +120,7 @@ exports.run = async (message, args) => {
         console.log("!result")
       } else {
         console.log("result is: " + result + ".")
+      }
       return;
       await populate_results(result);
     }
