@@ -119,22 +119,30 @@ exports.run = async (message, args) => {
     } else {
       var clean_message = message.cleanContent;
       var input = await clean_message.substring(clean_message.indexOf('"'));
+      console.log("trimmed input is: '" + input.trim() + "'.");
       if (input.trim() === "") {
-        console.log("No input substring was found in the message - returning error message...");
+        console.log("FAIL: No input substring was found in the message - returning error message...");
         message.reply("You haven't provided a table of scores (no attachment, and no data provided after the round number in the command).  Did you mean to use the command ++results " + round_num + " instead??");
         return;
         //we expect a string, so we test for an empty string and return with an error if it is empty
+      } else {
+        console.log("input -- PASS");
       }
       var result = await csv.toObjects(input);
       if (result) {
+        console.log("result is: '" + result + "'.");
         var obj_empty = await check_obj(result);
         if (obj_empty) {
-	  console.log("The object returned from csv.toObjects was empty - returning error message...");
+          console.log("FAIL: The object returned from csv.toObjects was empty - returning error message...");
           message.reply("You haven't provided a table of scores (no attachment, and the data provided failed conversion to a js Object).  Did you mean to use the command ++results " + round_num + " instead??");
           return;
 	  //we expect an object, so we test for an empty object and return with an error if it is empty
-	}
-      }
+        } else {
+          console.log("result -- PASS");
+        }
+      } else {
+        console.log("ERROR: var result undeclared");
+        return;
       await populate_results(result);
     }
   } catch (e) {
