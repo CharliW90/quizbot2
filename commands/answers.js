@@ -115,17 +115,17 @@ exports.run = async (message, args) => {
     } else {
       var clean_message = message.cleanContent;
       var input = await clean_message.substring(clean_message.indexOf('"'));
-      var result = await csv.toObjects(input);
-      if (result == null) {
-        console.log("result is NULL")
-      } else {
-        if (result == "") {
-          console.log("result is BLANK")
-        } else {
-          console.log("result is: " + result + ".")
-        }
+      if (input == "") {
+        console.log("No input substring was found in the message - returning error message...");
+        message.reply("You haven't provided a table of scores (no attachment, and no data provided after the round number in the command).  Did you mean to use the command ++results " + round_num + " instead??");
+        return;
       }
-      return;
+      var result = await csv.toObjects(input);
+      if (result == "") {
+        console.log("No result was returned from csv.toObjects - returning error message...);
+        message.reply("You haven't provided a table of scores (no attachment, and the data provided failed conversion to a js Object).  Did you mean to use the command ++results " + round_num + " instead??");
+        return;
+      }
       await populate_results(result);
     }
   } catch (e) {
