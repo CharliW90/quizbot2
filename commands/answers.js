@@ -115,7 +115,7 @@ exports.run = async (message, args) => {
     } else {
       var clean_message = message.cleanContent;
       var input = await clean_message.substring(clean_message.indexOf('"'));
-      if (input === "") {
+      if (input.trim === "") {
         console.log("No input substring was found in the message - returning error message...");
         message.reply("You haven't provided a table of scores (no attachment, and no data provided after the round number in the command).  Did you mean to use the command ++results " + round_num + " instead??");
         return;
@@ -123,7 +123,7 @@ exports.run = async (message, args) => {
         console.log("input is " + typeof input);
       }
       var result = await csv.toObjects(input);
-      if (result == "") {
+      if (result.trim === "") {
         console.log("No result was returned from csv.toObjects - returning error message...");
         message.reply("You haven't provided a table of scores (no attachment, and the data provided failed conversion to a js Object).  Did you mean to use the command ++results " + round_num + " instead??");
         return;
