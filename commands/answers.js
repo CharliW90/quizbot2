@@ -119,7 +119,6 @@ exports.run = async (message, args) => {
     } else {
       var clean_message = message.cleanContent;
       var input = await clean_message.substring(clean_message.indexOf('"'));
-      console.log("trimmed input is: '" + input.trim() + "'.");
       if (input.trim() === "" || input == clean_message) {
         console.log("FAIL: No input substring was found in the message - returning error message...");
         message.reply("You haven't provided a table of scores (no attachment, and no data provided after the round number in the command).  Did you mean to use the command ++results " + round_num + " instead??");
@@ -130,7 +129,6 @@ exports.run = async (message, args) => {
       }
       var result = await csv.toObjects(input);
       if (result) {
-        console.log("result is: '" + result + "'.");
         var obj_empty = await check_obj(result);
         if (obj_empty) {
           console.log("FAIL: The object returned from csv.toObjects was empty - returning error message...");
@@ -142,6 +140,7 @@ exports.run = async (message, args) => {
         }
       } else {
         console.log("ERROR: var result undeclared");
+        //the variable result is 'declared' on Line 09 of this code - this error message should never trigger!!
         return;
       }
       await populate_results(result);
