@@ -122,7 +122,7 @@ exports.run = async (message, args) => {
       }
       var result = await csv.toObjects(input);
       if (result == "") {
-        console.log("No result was returned from csv.toObjects - returning error message...);
+        console.log("No result was returned from csv.toObjects - returning error message...");
         message.reply("You haven't provided a table of scores (no attachment, and the data provided failed conversion to a js Object).  Did you mean to use the command ++results " + round_num + " instead??");
         return;
       }
