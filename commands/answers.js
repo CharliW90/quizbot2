@@ -115,9 +115,11 @@ exports.run = async (message, args) => {
     } else {
       var clean_message = message.cleanContent;
       var input = await clean_message.substring(clean_message.indexOf('"'));
-      console.log("input is: " + input);
       var result = await csv.toObjects(input);
-      console.log("result is: " + result)
+      if (!result) {
+        console.log("!result")
+      } else {
+        console.log("result is: " + result + ".")
       return;
       await populate_results(result);
     }
