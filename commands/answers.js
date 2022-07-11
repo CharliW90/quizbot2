@@ -20,10 +20,6 @@ exports.run = async (message, args) => {
       message.reply(args[0] + " is not a number!");
       return;
     }
-    if (!result) {
-      message.reply("You haven't provided a table of answers - did you mean to use the command ++results " + round_num + " ??");
-      return;
-    }
     var team_results_names = [];
     const cleanup_results = async (result) => {
       
@@ -118,8 +114,16 @@ exports.run = async (message, args) => {
       });
     } else {
       var clean_message = message.cleanContent;
-      var input = clean_message.substring(clean_message.indexOf('"'));
-      var result = csv.toObjects(input);
+      var input = await clean_message.substring(clean_message.indexOf('"'));
+      if (!input) {
+      	message.reply("You haven't provided a table of answers - did you mean to use the command ++results " + round_num + " ??");
+      	return;
+      }
+      var result = await csv.toObjects(input);
+      if (!result) {
+      	message.reply("You haven't provided a table of answers - did you mean to use the command ++results " + round_num + " ??");
+      	return;
+      }
       await populate_results(result);
     }
   } catch (e) {
