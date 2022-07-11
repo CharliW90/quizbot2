@@ -120,7 +120,7 @@ exports.run = async (message, args) => {
       var clean_message = message.cleanContent;
       var input = await clean_message.substring(clean_message.indexOf('"'));
       console.log("trimmed input is: '" + input.trim() + "'.");
-      if (input.trim() === "") {
+      if (input.trim() === "" || input == clean_message) {
         console.log("FAIL: No input substring was found in the message - returning error message...");
         message.reply("You haven't provided a table of scores (no attachment, and no data provided after the round number in the command).  Did you mean to use the command ++results " + round_num + " instead??");
         return;
