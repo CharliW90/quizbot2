@@ -143,6 +143,7 @@ exports.run = async (message, args) => {
       } else {
         console.log("ERROR: var result undeclared");
         return;
+      }
       await populate_results(result);
     }
   } catch (e) {
