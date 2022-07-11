@@ -115,15 +115,10 @@ exports.run = async (message, args) => {
     } else {
       var clean_message = message.cleanContent;
       var input = await clean_message.substring(clean_message.indexOf('"'));
-      if (!input) {
-      	message.reply("You haven't provided a table of answers - did you mean to use the command ++results " + round_num + " ??");
-      	return;
-      }
+      console.log("input is: " + input);
       var result = await csv.toObjects(input);
-      if (!result) {
-      	message.reply("You haven't provided a table of answers - did you mean to use the command ++results " + round_num + " ??");
-      	return;
-      }
+      console.log("result is: " + result)
+      return;
       await populate_results(result);
     }
   } catch (e) {
