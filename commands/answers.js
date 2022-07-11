@@ -24,6 +24,10 @@ exports.run = async (message, args) => {
     const cleanup_results = async (result) => {
       
     }
+    const check_obj = async (object_to_test) => {
+      for (var x in object_to_test) { return false; }
+      return true;
+    }
     const populate_results = async (result) => {
       const quizTeamChannels = message.guild.channels.cache.find(CategoryChannel => CategoryChannel.name == "Quiz Teams").children;
       for (var team in result) {
@@ -115,20 +119,21 @@ exports.run = async (message, args) => {
     } else {
       var clean_message = message.cleanContent;
       var input = await clean_message.substring(clean_message.indexOf('"'));
-      if (input.trim === "") {
+      if (input.trim() === "") {
         console.log("No input substring was found in the message - returning error message...");
         message.reply("You haven't provided a table of scores (no attachment, and no data provided after the round number in the command).  Did you mean to use the command ++results " + round_num + " instead??");
         return;
-      } else {
-        console.log("input is " + typeof input);
+        //we expect a string, so we test for an empty string and return with an error if it is empty
       }
       var result = await csv.toObjects(input);
-      if (result.trim === "") {
-        console.log("No result was returned from csv.toObjects - returning error message...");
-        message.reply("You haven't provided a table of scores (no attachment, and the data provided failed conversion to a js Object).  Did you mean to use the command ++results " + round_num + " instead??");
-        return;
-      } else {
-        console.log("result is " + typeof result);
+      if (result) {
+        var obj_empty = await check_obj(result);
+        if (obj_empty) {
+	  console.log("The object returned from csv.toObjects was empty - returning error message...");
+          message.reply("You haven't provided a table of scores (no attachment, and the data provided failed conversion to a js Object).  Did you mean to use the command ++results " + round_num + " instead??");
+          return;
+	  //we expect an object, so we test for an empty object and return with an error if it is empty
+	}
       }
       await populate_results(result);
     }
