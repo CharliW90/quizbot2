@@ -7,12 +7,25 @@ exports.run = async (message, args) => {
     try {
         const allRoles = message.guild.roles.fetch();
         const teamPos = message.guild.roles.cache.find(role => role.name === 'Team Captain').rawPosition;
+        const deletedRoles = []
+        let deletionCount = 0
         message.guild.roles.cache.forEach((role) => {
           if(role.rawPosition < teamPos && role.rawPosition > 0){
-            console.log(role.name)
-            message.reply(`Testing - this command would have deleted ${role}`)
+            deletedRoles.push(role.name);
+            deletionCount++;
+            role.delete().catch(console.error);
           }
         })
+        if(deletedRoles[0]){
+            const deletedRoles_embed = new Discord.MessageEmbed()
+                .setColor('#ea0dc1')
+                .setTitle('Virtual Quizzes Discord Server Hard Reset')
+                .setDescription(`${deletionCount} Roles Deleted`)
+                .addField('Deleted Roles:', deletedRoles.join('\n'))
+            message.channel.send(reset_embed);
+        } else {
+            message.reply('there are no roles beneath 'Team Captain' in the heirarchy of roles - nothing to delete...');
+        }
     } catch (e) {
         throw e;
     }
