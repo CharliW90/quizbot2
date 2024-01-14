@@ -7,6 +7,7 @@ exports.run = async (message, args) => {
         const teamPos = message.guild.roles.cache.find(role => role.name === 'Team Captain') - 1;
         message.guild.roles.cache.forEach((role) => {
           if(role <= teamPos){
+            console.log(role)
             message.reply(`Testing - this command would have deleted ${role}`)
           }
         })
