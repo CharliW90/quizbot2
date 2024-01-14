@@ -24,7 +24,7 @@ exports.run = async (message, args) => {
                 .addField('Deleted Roles:', deletedRoles.join('\n'))
             message.channel.send(reset_embed);
         } else {
-            message.reply('there are no roles beneath 'Team Captain' in the heirarchy of roles - nothing to delete...');
+            message.reply("there are no roles beneath 'Team Captain' in the heirarchy of roles - nothing to delete...");
         }
     } catch (e) {
         throw e;
