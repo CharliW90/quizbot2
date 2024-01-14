@@ -4,7 +4,11 @@ exports.run = async (message, args) => {
     var teamCount = base.teamCount;
     var admin_channel = base.admin_channel;
     try {
+        const allRoles = message.guild.roles.fetch();
         const teamPos = message.guild.roles.cache.find(role => role.name === 'Team Captain') - 1;
+        console.log(`the teamPos is ${teamPos}`);
+        console.log("Roles:");
+        console.log(message.guild.roles.cache)
         message.guild.roles.cache.forEach((role) => {
           if(role <= teamPos){
             console.log(role)
