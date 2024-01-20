@@ -3,29 +3,13 @@ exports.run = async (message, args) => {
     var Discord = base.Discord;
     var teamCount = base.teamCount;
     var admin_channel = base.admin_channel;
+    var quizmasters1 = message.guild.roles.cache.find(role => role.name === 'Quizmaster').members.map(m=>m.user.tag).join(',');
+    var quizmasters2 = message.guild.roles.cache.find(role => role.name === 'Quizmaster').members;
     try {
-        await message.guild.members.fetch()
-          .catch(console.error);
-        if (message.guild.channels.cache.find(CategoryChannel => CategoryChannel.name == "Quiz Teams") == undefined) {
-            message.reply('Cannot find the Quiz Teams Category');
-        } else {
-            const quizTeamChannels = message.guild.channels.cache.find(CategoryChannel => CategoryChannel.name == "Quiz Teams").children;
-            quizTeamChannels.forEach(channel => {
-                if (channel.type == 'text') {
-                  //we only want to get the role from the first channel we encounter, because by the time we get to the second it has already been deleted
-                  if (message.guild.roles.cache.find(role => role.id === channel.permissionOverwrites.array()[1].id)) {
-                    let n = 0;
-                    console.log("Results for: " + channel.name);
-                    while (channel.permissionOverwrites.array()[n]) {
-                      let role = message.guild.roles.cache.find(role => role.id === channel.permissionOverwrites.array()[n].id)
-                      console.log("The " + n + " item in the array is: " + role.name);
-                      console.log("Which is ID: " + role.id);
-                      n++;
-                    }
-                  }
-                }
-            });
-        }
+        message.reply(`A: Hi there, and welcome to the Virtual Quiz!  :grin:  As the Team Captain, you are able to use my 'add', 'remove', and 'promote' commands and you also have access to the 'ask-the-quizmasters' text channel to speak to ${...quizmasters1}.  If you need any help with my commands just use ++help in your text channel.  Good luck, have fun!  :heart:`);
+        message.reply(`B: Hi there, and welcome to the Virtual Quiz!  :grin:  As the Team Captain, you are able to use my 'add', 'remove', and 'promote' commands and you also have access to the 'ask-the-quizmasters' text channel to speak to ${...quizmasters2}.  If you need any help with my commands just use ++help in your text channel.  Good luck, have fun!  :heart:`);
+        message.reply(`C: Hi there, and welcome to the Virtual Quiz!  :grin:  As the Team Captain, you are able to use my 'add', 'remove', and 'promote' commands and you also have access to the 'ask-the-quizmasters' text channel to speak to ${quizmasters1.join(',')}.  If you need any help with my commands just use ++help in your text channel.  Good luck, have fun!  :heart:`);
+        message.reply(`D: Hi there, and welcome to the Virtual Quiz!  :grin:  As the Team Captain, you are able to use my 'add', 'remove', and 'promote' commands and you also have access to the 'ask-the-quizmasters' text channel to speak to ${...quizmasters1.join(',')}.  If you need any help with my commands just use ++help in your text channel.  Good luck, have fun!  :heart:`);
     } catch (e) {
         throw e;
     }
