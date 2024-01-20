@@ -114,6 +114,7 @@ exports.run = async (message, args) => {
             });
             success_message.push('Voice channel created for: ' + createdRole.name);
 
+            const quizmasters = await message.guild.roles.cache.find(role => role.name === 'Quizmaster').members;
             let teamCaptain = mentions[0];
             const member_Captain = await message.guild.members.fetch(teamCaptain.replace("<@", "").replace("!", "").replace('>', ''));
             member_Captain.roles.add(role_captain).catch(console.error);
@@ -156,7 +157,11 @@ exports.run = async (message, args) => {
               await base.team_dictionaryParse(newTeamName, textChannelTeamName);
             }
             await teamsObject.register(teamCount, createdRole.name, tc, vc, all_team_members, teamColour);
-            member_Captain.send("Hi there, and welcome to the Virtual Quiz!  :grin:  As the Team Captain, you are able to use my 'add', 'remove', and 'promote' commands and you also have access to the 'ask-the-quizmasters' text channel to speak to JoRo and Arcadius.  If you need any help with my commands just use ++help in your text channel.  Good luck, have fun!  :heart:");
+            const quizmasterMembers = [];
+            await quizmasters.forEach((member) => {
+                quizmasterMembers.push(member);
+            });
+            member_Captain.send(`Hi there, and welcome to the Virtual Quiz!  :grin:  As the Team Captain, you are able to use my 'add', 'remove', and 'promote' commands and you also have access to the 'ask-the-quizmasters' text channel to speak to ${quizmasterMembers.join(', ')}.  If you need any help with my commands just use ++help in your text channel.  Good luck, have fun!  :heart:`);
         }
     } catch (e) {
         throw e;
