@@ -20,9 +20,10 @@ exports.run = async (message, args) => {
         await quizmasters.forEach((member) => {
             member.forEach((unknownThing) => {
                 console.log(unknownThing);
-            }};
+            });
         });
     } catch (e) {
         throw e;
     }
+    message.delete()
 }
