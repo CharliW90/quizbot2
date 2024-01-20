@@ -3,6 +3,7 @@ exports.run = async (message, args) => {
     var Discord = base.Discord;
     var teamCount = base.teamCount;
     var admin_channel = base.admin_channel;
+    message.guild.members.fetch();
     var quizmasters = await message.guild.roles.cache.find(role => role.name === 'Quizmaster').members;
     try {
         console.log(quizmasters.keys())
