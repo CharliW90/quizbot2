@@ -18,7 +18,6 @@ exports.run = async (message, args) => {
             quizmasterMembers.push(member);
         })
         message.reply(`TEST: Hi there, and welcome to the Virtual Quiz!  :grin:  As the Team Captain, you are able to use my 'add', 'remove', and 'promote' commands and you also have access to the 'ask-the-quizmasters' text channel to speak to ${quizmasterMembers.join(',')}.  If you need any help with my commands just use ++help in your text channel.  Good luck, have fun!  :heart:`);
-        message.reply(`TEST: Hi there, and welcome to the Virtual Quiz!  :grin:  As the Team Captain, you are able to use my 'add', 'remove', and 'promote' commands and you also have access to the 'ask-the-quizmasters' text channel to speak to ${...quizmasterMembers}.  If you need any help with my commands just use ++help in your text channel.  Good luck, have fun!  :heart:`);
     } catch (e) {
         throw e;
     }
