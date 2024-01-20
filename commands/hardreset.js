@@ -3,7 +3,7 @@ exports.run = async (message, args) => {
     var Discord = base.Discord;
     var teamCount = base.teamCount;
     var admin_channel = base.admin_channel;
-    console.log(`Hard Reset requested by ${message.author}`);
+    console.log(`!! ++hardreset requested by ${message.author.username}`);
     try {
         const allRoles = message.guild.roles.fetch();
         const teamPos = message.guild.roles.cache.find(role => role.name === 'Team Captain').rawPosition;
