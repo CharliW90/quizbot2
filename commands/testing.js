@@ -12,8 +12,7 @@ exports.run = async (message, args) => {
         await quizmasters.forEach((member) => {
             quizmasterMembers.push(member);
         });
-        console.log(quizmasterMembers)
-        await message.channel.send(`TEST: Hi there, and welcome to the Virtual Quiz!  :grin:  As the Team Captain, you are able to use my 'add', 'remove', and 'promote' commands and you also have access to the 'ask-the-quizmasters' text channel to speak to ${quizmasterMembers.join(',')}.  If you need any help with my commands just use ++help in your text channel.  Good luck, have fun!  :heart:`);
+        await message.channel.send(`TEST: Hi there, and welcome to the Virtual Quiz!  :grin:  As the Team Captain, you are able to use my 'add', 'remove', and 'promote' commands and you also have access to the 'ask-the-quizmasters' text channel to speak to ${quizmasterMembers.join(', ')}.  If you need any help with my commands just use ++help in your text channel.  Good luck, have fun!  :heart:`);
         
         
         //  put test code above this line ---------------
